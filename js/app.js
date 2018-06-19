@@ -7,7 +7,7 @@ Pics.gallery = [];
 Pics.clickTracker = 0;
 
 // track previously displayed pics
-//Pics.lastDisplayed = [];
+Pics.lastDisplayed = [];
 
 
 // access the element by id
@@ -15,63 +15,92 @@ Pics.imgElements = document.getElementsByClassName('pictures');
 // Pics.ulEl = document.getElementById('results');
 
 // constructor to make random pic instances
-function Pics(filepath, displayName, picId) {
+function Pics(filepath, displayName) {
   this.filepath = filepath;
   this.displayName = displayName;
   this.votes = 0;
   this.timesDisplayed = 0;
-  this.picId = picId;
   Pics.gallery.push(this);
 }
 
 // generate random number, multiply by gallery array length, then round down to pick out 3 random pics and
 // make sure no duplicates or repeats (CHECK THREE CONDITIONS do/while)
-Pics.randomPic = function(index) {
-  for(var i = 0; i < 3; i++) {
-    var randomNum = Math.random() * Pics.gallery.length;
-    var roundedDown = Math.floor(randomNum);
-    var onePic = Pics.gallery[roundedDown];
-    Pics.imgElements[index].src = onePic.filepath.substr(3);
-  }
+Pics.randomPic = function() {
+  do {
+    var randomL = Math.floor(Math.random() * Pics.gallery.length);
+    var randomC = Math.floor(Math.random() * Pics.gallery.length);
+    var randomR = Math.floor(Math.random() * Pics.gallery.length);
+    console.log('anything');
+  } while (randomC === randomL || randomR === randomL || randomC === randomR
+    || Pics.lastDisplayed.includes(randomL)
+    || Pics.lastDisplayed.includes(randomC)
+    || Pics.lastDisplayed.includes(randomR));
+
+  Pics.lastDisplayed[0] = randomL;
+  Pics.lastDisplayed[1] = randomC;
+  Pics.lastDisplayed[2] = randomR;
+
+  var displayPics = function(randomIndex, htmlIndex) {
+    var photo = Pics.gallery[randomIndex];
+    Pics.imgElements[htmlIndex].src = photo.filepath.substr(3);
+    Pics.imgElements[htmlIndex].alt = photo.displayName;
+    photo.timesDisplayed = photo.timesDisplayed + 1;
+    console.log(photo);
+    return photo;
+  };
+
+  displayPics(randomL, 0);
+  displayPics(randomC, 1);
+  displayPics(randomR, 2);
 };
+
+
+
 
 // track the number of clicks
 
 
-// track number of times a picture from the array shows
-
 
 // make "NEW" instances
-new Pics('../img/banana.jpg', 'Banana with cutter', 'banana');
-new Pics('../img/bathroom.jpg', 'Ipad on toilet paper roll', 'bathroom');
-new Pics('../img/boots.jpg', 'yellow rain boots', 'boots');
-new Pics('../img/breakfast.jpg', 'yummy breakfast', 'breakfast');
-new Pics('../img/bubblegum.jpg', 'meatball bubblegum', 'bubblegum');
-new Pics('../img/chair.jpg', 'red chair with inverted seat', 'chair');
-new Pics('../img/dog-duck.jpg', 'dog with duck mouth', 'dog duck');
-new Pics('../img/dragon.jpg', 'canned dragon meat', 'dragon');
-new Pics('../img/pen.jpg', 'pens with utensil caps', 'pen');
-new Pics('../img/pet-sweep.jpg', 'pet sweep dust boots', 'pet sweep');
-new Pics('../img/r2d2bag.jpg', 'R2D2 luggage', 'bag');
-new Pics('../img/scissors.jpg', 'pizza scissors', 'scissors');
-new Pics('../img/shark.jpg', 'shark sleeping bag', 'shark');
-new Pics('../img/tauntaun.jpg', 'tauntaun sleeper', 'tauntaun');
-new Pics('../img/unicorn.jpg', 'canned unicorn meat', 'unicorn');
-new Pics('../img/usb.jpg', '', 'usb');
-new Pics('../img/water-can.jpg', 'water can', 'water can');
-new Pics('../img/wine-glass.jpg', 'wierd wine glass', 'wine glass');
+new Pics('../img/banana.jpg', 'Banana with cutter');
+new Pics('../img/bathroom.jpg', 'Ipad on toilet paper roll');
+new Pics('../img/boots.jpg', 'yellow rain boots');
+new Pics('../img/breakfast.jpg', 'yummy breakfast');
+new Pics('../img/bubblegum.jpg', 'meatball bubblegum');
+new Pics('../img/chair.jpg', 'red chair with inverted seat');
+new Pics('../img/dog-duck.jpg', 'dog with duck mouth');
+new Pics('../img/dragon.jpg', 'canned dragon meat');
+new Pics('../img/pen.jpg', 'pens with utensil caps');
+new Pics('../img/pet-sweep.jpg', 'pet sweep dust boots');
+new Pics('../img/r2d2bag.jpg', 'R2D2 luggage');
+new Pics('../img/scissors.jpg', 'pizza scissors');
+new Pics('../img/shark.jpg', 'shark sleeping bag');
+new Pics('../img/tauntaun.jpg', 'tauntaun sleeper');
+new Pics('../img/unicorn.jpg', 'canned unicorn meat');
+new Pics('../img/usb.jpg', 'usb');
+new Pics('../img/water-can.jpg', 'water can');
+new Pics('../img/wine-glass.jpg', 'wierd wine glass');
 
 
 
 // attach event listener
-Pics.imgElements[0].addEventListener('click', Pics.randomPic(0));
-Pics.imgElements[1].addEventListener('click', Pics.randomPic(1));
-Pics.imgElements[2].addEventListener('click', Pics.randomPic(2));
+Pics.imgElements[0].addEventListener('click', function() {
+  // this.src;
+  console.log(this.src);
+  Pics.randomPic(0);
+});
+Pics.imgElements[1].addEventListener('click', function() {
+  console.log('event listener 2');
+  Pics.randomPic(1);
+});
+Pics.imgElements[2].addEventListener('click', function() {
+  console.log('event listener 3');
+  Pics.randomPic(2);
+});
 
 // invoke/call
 Pics.randomPic();
-Pics.clickTracker();
-Pics.viewTracker();
+
 
 // for the chart
 // Pics.renderChart = function() {
