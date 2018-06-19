@@ -31,8 +31,18 @@ Pics.randomPic = function(index) {
 // track the number of clicks
 Pics.clickTracker = function() {
   Pics.clickTracker++;
-}
+};
 
+// track number of times a picture from the array shows
+Pics.viewTracker = function() {
+  var counter = 0;
+  for(var i = 0; i < Pics.gallery.length; i++) {
+    if (Pics.gallery[i]=== ) {
+      counter++;
+    }
+  }
+  return counter;
+};
 
 // make "NEW" instances
 new Pics('../img/banana.jpg', 'Banana with cutter', 'banana');
@@ -59,5 +69,6 @@ Pics.imgElements[0].addEventListener('click', Pics.randomPic(0));
 Pics.imgElements[1].addEventListener('click', Pics.randomPic(1));
 Pics.imgElements[2].addEventListener('click', Pics.randomPic(2));
 
-
+// invoke/call
 Pics.randomPic();
+Pics.clickTracker();
