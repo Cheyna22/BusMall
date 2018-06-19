@@ -2,23 +2,30 @@
 
 // array to hold pictures
 Pics.gallery = [];
+
+// variable to keep track of clicks
 Pics.clickTracker = 0;
+
+// track previously displayed pics
+//Pics.lastDisplayed = [];
 
 
 // access the element by id
 Pics.imgElements = document.getElementsByClassName('pictures');
+// Pics.ulEl = document.getElementById('results');
 
 // constructor to make random pic instances
 function Pics(filepath, displayName, picId) {
   this.filepath = filepath;
   this.displayName = displayName;
-  this.clickNum = 0;
-  this.showNum = 0;
+  this.votes = 0;
+  this.timesDisplayed = 0;
   this.picId = picId;
   Pics.gallery.push(this);
 }
 
-// generate random number, multiply by gallery array length, then round down to pick out 3 random pics
+// generate random number, multiply by gallery array length, then round down to pick out 3 random pics and
+// make sure no duplicates or repeats (CHECK THREE CONDITIONS do/while)
 Pics.randomPic = function(index) {
   for(var i = 0; i < 3; i++) {
     var randomNum = Math.random() * Pics.gallery.length;
@@ -29,20 +36,10 @@ Pics.randomPic = function(index) {
 };
 
 // track the number of clicks
-Pics.clickTracker = function() {
-  Pics.clickTracker++;
-};
+
 
 // track number of times a picture from the array shows
-Pics.viewTracker = function() {
-  var counter = 0;
-  for(var i = 0; i < Pics.gallery.length; i++) {
-    if (Pics.gallery[i]=== ) {
-      counter++;
-    }
-  }
-  return counter;
-};
+
 
 // make "NEW" instances
 new Pics('../img/banana.jpg', 'Banana with cutter', 'banana');
@@ -64,6 +61,8 @@ new Pics('../img/usb.jpg', '', 'usb');
 new Pics('../img/water-can.jpg', 'water can', 'water can');
 new Pics('../img/wine-glass.jpg', 'wierd wine glass', 'wine glass');
 
+
+
 // attach event listener
 Pics.imgElements[0].addEventListener('click', Pics.randomPic(0));
 Pics.imgElements[1].addEventListener('click', Pics.randomPic(1));
@@ -72,3 +71,30 @@ Pics.imgElements[2].addEventListener('click', Pics.randomPic(2));
 // invoke/call
 Pics.randomPic();
 Pics.clickTracker();
+Pics.viewTracker();
+
+// for the chart
+// Pics.renderChart = function() {
+//   var context = document.getElementById('results-chart').getContext('2d');
+
+//   var infoChart = new CharacterData(context, {
+//     type: 'bar',
+//     data: {
+//       labels: [array of names], // make a new array to store names so we can pass it in here
+//       datasets: [{
+//         label: 'Votes Per Product',
+//         data: [array of data], // make a new array to store data so we can pass it in here
+//         backgroundColors: ['#d0caca', '#e17a7a', '#b87e7e', '#F44336'] // can hardcode or creat a variable and pass it in here (need 20 colors)
+//       }],
+//     },
+//     options: {
+//       scales: {
+//         yAxes: [{
+//           ticks: {
+//             beginAtZero: true,
+//           }
+//         }]
+//       }
+//     }
+//   });
+// }
