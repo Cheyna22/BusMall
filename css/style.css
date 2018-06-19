@@ -1,0 +1,11 @@
+#choose {
+  font-size: 100px;
+}
+
+section img {
+  width: 25%;
+  height: 25%;
+  margin: 10 auto;
+  border: 4px groove blue;
+}
+
