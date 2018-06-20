@@ -1,5 +1,12 @@
 #choose {
-  font-size: 100px;
+  font-size: 20px;
+}
+
+header h1 {
+  background-color: red;
+  font-size: 20px;
+  font-family: fantasy
+  
 }
 
 section img {
