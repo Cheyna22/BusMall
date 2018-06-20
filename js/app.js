@@ -25,6 +25,7 @@ function Pics(filepath, displayName) {
   this.votes = 0;
   this.timesDisplayed = 0;
   Pics.gallery.push(this);
+  Pics.chartNames.push(this.displayName);
 }
 
 // make "NEW" instances
@@ -99,11 +100,16 @@ Pics.resultsList = function() {
 
 // define callback function
 Pics.trackClick = function(event) {
+  event.preventDefault;
   // increment click tracker
   Pics.clickTracker++;
   if(Pics.clickTracker > 24) {
     alert('You have reached 25 clicks.  Thank you for participating!');
+    for(var i in Pics.gallery) {
+      Pics.numVotes.push(Pics.gallery[i].votes);
+    }
     Pics.resultsList();
+    Pics.renderChart();
     Pics.imgElements[0].removeEventListener('click', Pics.trackClick);
     Pics.imgElements[1].removeEventListener('click', Pics.trackClick);
     Pics.imgElements[2].removeEventListener('click', Pics.trackClick);
@@ -122,27 +128,44 @@ Pics.randomPic();
 
 
 // for the chart
-// Pics.renderChart = function() {
-//   var context = document.getElementById('results-chart').getContext('2d');
+Pics.renderChart = function() {
+  var ctx = document.getElementById('resultsChart').getContext('2d');
 
-//   var infoChart = new CharacterData(context, {
-//     type: 'bar',
-//     data: {
-//       labels: Pics.chartNames, // make a new array to store names so we can pass it in here
-//       datasets: [{
-//         label: 'Votes Per Product',
-//         data: Pics.numVotes, // make a new array to store data so we can pass it in here
-//         backgroundColors: ['#d0caca', '#e17a7a', '#b87e7e', '#F44336'], // can hardcode or creat a variable and pass it in here (need 20 colors)
-//       }],
-//     },
-//     options: {
-//       scales: {
-//         yAxes: [{
-//           ticks: {
-//             beginAtZero: true,
-//           }
-//         }]
-//       }
-//     }
-//   });
-// };
+  var resultsChart = new Chart(ctx, { // eslint-disable-line
+    type: 'bar',
+    data: {
+      // make a new array to store names so we can pass it in here
+      labels: Pics.chartNames,
+      datasets: [{
+        label: 'Votes',
+        // make a new array to store data so we can pass it in here
+        data: Pics.numVotes,
+        // can hardcode or creat a variable and pass it in here (need 20 colors)
+        backgroundColor: ['#b71c1c', '#880E4F', '#4A148C', '#311B92', '#1A237E', '#0D47A1', '#01579B', '#006064', '#004D40', '#1B5E20', '#b71c1c', '#880E4F', '#4A148C', '#311B92', '#1A237E', '#0D47A1', '#01579B', '#006064', '#004D40', '#1B5E20'],
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Votes Per Product',
+        fontSize: 25
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            autoSkip: false
+          }
+        }]
+      }
+    }
+  });
+};
+
