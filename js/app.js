@@ -9,6 +9,10 @@ Pics.clickTracker = 0;
 // track previously displayed pics
 Pics.lastDisplayed = [];
 
+// store votes in an array for chart and also for names for chart
+Pics.numVotes = [];
+Pics.chartNames = [];
+
 
 // access the element by id
 Pics.imgElements = document.getElementsByClassName('pictures');
@@ -22,44 +26,6 @@ function Pics(filepath, displayName) {
   this.timesDisplayed = 0;
   Pics.gallery.push(this);
 }
-
-// generate random number, multiply by gallery array length, then round down to pick out 3 random pics and
-// make sure no duplicates or repeats (CHECK THREE CONDITIONS do/while)
-Pics.randomPic = function() {
-  do {
-    var randomL = Math.floor(Math.random() * Pics.gallery.length);
-    var randomC = Math.floor(Math.random() * Pics.gallery.length);
-    var randomR = Math.floor(Math.random() * Pics.gallery.length);
-    console.log('anything');
-  } while (randomC === randomL || randomR === randomL || randomC === randomR
-    || Pics.lastDisplayed.includes(randomL)
-    || Pics.lastDisplayed.includes(randomC)
-    || Pics.lastDisplayed.includes(randomR));
-
-  Pics.lastDisplayed[0] = randomL;
-  Pics.lastDisplayed[1] = randomC;
-  Pics.lastDisplayed[2] = randomR;
-
-  var displayPics = function(randomIndex, htmlIndex) {
-    var photo = Pics.gallery[randomIndex];
-    Pics.imgElements[htmlIndex].src = photo.filepath.substr(3);
-    Pics.imgElements[htmlIndex].alt = photo.displayName;
-    photo.timesDisplayed = photo.timesDisplayed + 1;
-    console.log(photo);
-    return photo;
-  };
-
-  displayPics(randomL, 0);
-  displayPics(randomC, 1);
-  displayPics(randomR, 2);
-};
-
-
-
-
-// track the number of clicks
-
-
 
 // make "NEW" instances
 new Pics('../img/banana.jpg', 'Banana with cutter');
@@ -81,20 +47,79 @@ new Pics('../img/usb.jpg', 'usb');
 new Pics('../img/water-can.jpg', 'water can');
 new Pics('../img/wine-glass.jpg', 'wierd wine glass');
 
+// generate random number, multiply by gallery array length, then round down to pick out 3 random pics and
+// make sure no duplicates or repeats (CHECK THREE CONDITIONS do/while)
+Pics.randomPic = function() {
+  do {
+    var randomL = Math.floor(Math.random() * Pics.gallery.length);
+    var randomC = Math.floor(Math.random() * Pics.gallery.length);
+    var randomR = Math.floor(Math.random() * Pics.gallery.length);
+  } while (randomC === randomL || randomR === randomL || randomC === randomR
+    || Pics.lastDisplayed.includes(randomL)
+    || Pics.lastDisplayed.includes(randomC)
+    || Pics.lastDisplayed.includes(randomR));
 
+  Pics.lastDisplayed[0] = randomL;
+  Pics.lastDisplayed[1] = randomC;
+  Pics.lastDisplayed[2] = randomR;
+
+  var displayPics = function(randomIndex, htmlIndex) {
+    var photo = Pics.gallery[randomIndex];
+    Pics.imgElements[htmlIndex].src = photo.filepath.substr(3);
+    Pics.imgElements[htmlIndex].alt = photo.displayName;
+    photo.timesDisplayed = photo.timesDisplayed + 1;
+    return photo;
+  };
+
+  displayPics(randomL, 0);
+  displayPics(randomC, 1);
+  displayPics(randomR, 2);
+  Pics.gallery[randomL].timesDisplayed++;
+  Pics.gallery[randomC].timesDisplayed++;
+  Pics.gallery[randomR].timesDisplayed++;
+};
+
+// show the list on the screen - use function and for loop - for all the items in the array create a list element and give it content (remember to appendChild!!)
+Pics.resultsList = function() {
+  for(var i in Pics.gallery) {
+    var liEl = document.createElement('li');
+    liEl.textContent = `${Pics.gallery[i].displayName} has ${Pics.gallery[i].votes} votes and has been displayed ${Pics.gallery[i].timesDisplayed} times.`;
+    Pics.ulEl.appendChild(liEl);
+  }
+};
+
+// track the number of votes
+Pics.trackVotes = function() {
+  for(var i in Pics.gallery) {
+    Pics.numVotes[i](Pics.gallery[i].votes);
+    Pics.chartNames[i](Pics.gallery[i].displayName);
+  }
+};
+
+// define callback function
+// Pics.trackClick = function(event) {
+//   // increment click tracker
+//   Pics.clickTracker++;
+//   for(var i in Pics.gallery) {
+//     if(event.target.alt === Pics.gallery[i].displayName) {
+//       Pics.gallery[i].votes++;
+//     }
+//   }
+//   if(Pics.gallery[i] > 24) {
+//   Pics.resultsList();
+//   Pics.trackVotes();
+//   Pics.renderChart();
+
+// };
 
 // attach event listener
 Pics.imgElements[0].addEventListener('click', function() {
-  // this.src;
-  console.log(this.src);
   Pics.randomPic(0);
 });
 Pics.imgElements[1].addEventListener('click', function() {
-  console.log('event listener 2');
   Pics.randomPic(1);
 });
 Pics.imgElements[2].addEventListener('click', function() {
-  console.log('event listener 3');
   Pics.randomPic(2);
 });
 
@@ -109,11 +134,11 @@ Pics.randomPic();
 //   var infoChart = new CharacterData(context, {
 //     type: 'bar',
 //     data: {
-//       labels: [array of names], // make a new array to store names so we can pass it in here
+//       labels: Pics.chartNames, // make a new array to store names so we can pass it in here
 //       datasets: [{
 //         label: 'Votes Per Product',
-//         data: [array of data], // make a new array to store data so we can pass it in here
-//         backgroundColors: ['#d0caca', '#e17a7a', '#b87e7e', '#F44336'] // can hardcode or creat a variable and pass it in here (need 20 colors)
+//         data: Pics.numVotes, // make a new array to store data so we can pass it in here
+//         backgroundColors: ['#d0caca', '#e17a7a', '#b87e7e', '#F44336'], // can hardcode or creat a variable and pass it in here (need 20 colors)
 //       }],
 //     },
 //     options: {
@@ -126,4 +151,4 @@ Pics.randomPic();
 //       }
 //     }
 //   });
-// }
+// };
