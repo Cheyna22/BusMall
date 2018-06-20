@@ -97,20 +97,6 @@ Pics.resultsList = function() {
   }
 };
 
-// ***************I DONT THINK I NEED THIS ANYMORE************************************************************************
-// track the number of votes
-// Pics.trackVotes = function() {
-//   for(var i in Pics.gallery) {
-//     Pics.votes++;
-//     Pics.numVotes[i](Pics.gallery[i].votes);
-//     Pics.chartNames[i](Pics.gallery[i].displayName);
-//     console.log('vote tracker', Pics.trackVotes);
-//   }
-// };
-// ***********************************************************************************************************************
-
-
-
 // define callback function
 Pics.trackClick = function(event) {
   // increment click tracker
@@ -125,9 +111,6 @@ Pics.trackClick = function(event) {
     Pics.randomPic();
   }
 };
-
-
-
 
 // attach event listener
 Pics.imgElements[0].addEventListener('click', Pics.trackClick);
