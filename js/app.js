@@ -16,7 +16,7 @@ Pics.chartNames = [];
 
 // access the element by id
 Pics.imgElements = document.getElementsByClassName('pictures');
-// Pics.ulEl = document.getElementById('results');
+Pics.ulEl = document.getElementById('results');
 
 // constructor to make random pic instances
 function Pics(filepath, displayName) {
@@ -78,9 +78,11 @@ Pics.randomPic = function() {
   displayPics(randomL, 0);
   displayPics(randomC, 1);
   displayPics(randomR, 2);
+  // tracking times displayed
   Pics.gallery[randomL].timesDisplayed++;
   Pics.gallery[randomC].timesDisplayed++;
   Pics.gallery[randomR].timesDisplayed++;
+  // tracking total votes
   Pics.gallery[randomL].votes++;
   Pics.gallery[randomC].votes++;
   Pics.gallery[randomR].votes++;
@@ -89,7 +91,7 @@ Pics.randomPic = function() {
 // show the list on the screen - use function and for loop - for all the items in the array create a list element and give it content (remember to appendChild!!)
 Pics.resultsList = function() {
   for(var i in Pics.gallery) {
-    var liEl = document.getElementById('results');
+    var liEl = document.createElement('li');
     liEl.textContent = `${Pics.gallery[i].displayName} has ${Pics.gallery[i].votes} votes and has been displayed ${Pics.gallery[i].timesDisplayed} times.`;
     Pics.ulEl.appendChild(liEl);
   }
@@ -106,28 +108,31 @@ Pics.resultsList = function() {
 //   }
 // };
 // ***********************************************************************************************************************
-    
-    
-    
+
+
+
 // define callback function
-//   Pics.trackClick = function(event) {
-//       // increment click tracker
-//     Pics.gallery[randomL].clickTracker++;
-//       for(var i in Pics.gallery) {
-//         if(Pics.gallery[i] > 24) {
-//         Pics.resultsList();
-// };
+Pics.trackClick = function(event) {
+  // increment click tracker
+  Pics.clickTracker++;
+  if(Pics.clickTracker > 24) {
+    alert('You have reached 25 clicks.  Thank you for participating!');
+    Pics.resultsList();
+    Pics.imgElements[0].removeEventListener('click', Pics.trackClick);
+    Pics.imgElements[1].removeEventListener('click', Pics.trackClick);
+    Pics.imgElements[2].removeEventListener('click', Pics.trackClick);
+  } else {
+    Pics.randomPic();
+  }
+};
+
+
+
 
 // attach event listener
-Pics.imgElements[0].addEventListener('click', function() {
-  Pics.randomPic(0);
-});
-Pics.imgElements[1].addEventListener('click', function() {
-  Pics.randomPic(1);
-});
-Pics.imgElements[2].addEventListener('click', function() {
-  Pics.randomPic(2);
-});
+Pics.imgElements[0].addEventListener('click', Pics.trackClick);
+Pics.imgElements[1].addEventListener('click', Pics.trackClick);
+Pics.imgElements[2].addEventListener('click', Pics.trackClick);
 
 // invoke/call
 Pics.randomPic();
