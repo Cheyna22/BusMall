@@ -46,6 +46,10 @@ new Pics('../img/unicorn.jpg', 'canned unicorn meat');
 new Pics('../img/usb.jpg', 'usb');
 new Pics('../img/water-can.jpg', 'water can');
 new Pics('../img/wine-glass.jpg', 'wierd wine glass');
+new Pics('../img/cthulhu.jpg', 'green alien buddy');
+new Pics('../img/sweep.jpg', 'baby sweeper');
+
+
 
 // generate random number, multiply by gallery array length, then round down to pick out 3 random pics and
 // make sure no duplicates or repeats (CHECK THREE CONDITIONS do/while)
@@ -77,39 +81,41 @@ Pics.randomPic = function() {
   Pics.gallery[randomL].timesDisplayed++;
   Pics.gallery[randomC].timesDisplayed++;
   Pics.gallery[randomR].timesDisplayed++;
+  Pics.gallery[randomL].votes++;
+  Pics.gallery[randomC].votes++;
+  Pics.gallery[randomR].votes++;
 };
 
 // show the list on the screen - use function and for loop - for all the items in the array create a list element and give it content (remember to appendChild!!)
 Pics.resultsList = function() {
   for(var i in Pics.gallery) {
-    var liEl = document.createElement('li');
+    var liEl = document.getElementById('results');
     liEl.textContent = `${Pics.gallery[i].displayName} has ${Pics.gallery[i].votes} votes and has been displayed ${Pics.gallery[i].timesDisplayed} times.`;
     Pics.ulEl.appendChild(liEl);
   }
 };
 
+// ***************I DONT THINK I NEED THIS ANYMORE************************************************************************
 // track the number of votes
-Pics.trackVotes = function() {
-  for(var i in Pics.gallery) {
-    Pics.numVotes[i](Pics.gallery[i].votes);
-    Pics.chartNames[i](Pics.gallery[i].displayName);
-  }
-};
-
-// define callback function
-// Pics.trackClick = function(event) {
-//   // increment click tracker
-//   Pics.clickTracker++;
+// Pics.trackVotes = function() {
 //   for(var i in Pics.gallery) {
-//     if(event.target.alt === Pics.gallery[i].displayName) {
-//       Pics.gallery[i].votes++;
-//     }
+//     Pics.votes++;
+//     Pics.numVotes[i](Pics.gallery[i].votes);
+//     Pics.chartNames[i](Pics.gallery[i].displayName);
+//     console.log('vote tracker', Pics.trackVotes);
 //   }
-//   if(Pics.gallery[i] > 24) {
-//   Pics.resultsList();
-//   Pics.trackVotes();
-//   Pics.renderChart();
-
+// };
+// ***********************************************************************************************************************
+    
+    
+    
+// define callback function
+//   Pics.trackClick = function(event) {
+//       // increment click tracker
+//     Pics.gallery[randomL].clickTracker++;
+//       for(var i in Pics.gallery) {
+//         if(Pics.gallery[i] > 24) {
+//         Pics.resultsList();
 // };
 
 // attach event listener

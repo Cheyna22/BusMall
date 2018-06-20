@@ -3,8 +3,8 @@
 }
 
 section img {
-  width: 25%;
-  height: 25%;
+  width: 30%;
+  height: 300px;
   margin: 10 auto;
   border: 4px groove blue;
 }
