@@ -18,6 +18,10 @@ Pics.chartNames = [];
 Pics.imgElements = document.getElementsByClassName('pictures');
 Pics.ulEl = document.getElementById('results');
 
+// get user results from local storage
+Pics.parsedPics = JSON.parse(localStorage.getItem('userResults'));
+
+
 // constructor to make random pic instances
 function Pics(filepath, displayName) {
   this.filepath = filepath;
@@ -104,6 +108,7 @@ Pics.trackClick = function(event) {
   // increment click tracker
   Pics.clickTracker++;
   if(Pics.clickTracker > 24) {
+    // alert user that they have finished the survey
     alert('You have reached 25 clicks.  Thank you for participating!');
     for(var i in Pics.gallery) {
       Pics.numVotes.push(Pics.gallery[i].votes);
@@ -113,10 +118,19 @@ Pics.trackClick = function(event) {
     Pics.imgElements[0].removeEventListener('click', Pics.trackClick);
     Pics.imgElements[1].removeEventListener('click', Pics.trackClick);
     Pics.imgElements[2].removeEventListener('click', Pics.trackClick);
+
+    // set local storage
+    localStorage.setItem('userResults', JSON.stringify(Pics.gallery));
   } else {
     Pics.randomPic();
   }
 };
+
+// updating the userResults/parsePics array with the new 25 votes
+Pics.updateResults = function() {
+  localStorage.setItem(Pics.parsedPics.value);
+};
+
 
 // attach event listener
 Pics.imgElements[0].addEventListener('click', Pics.trackClick);
@@ -168,4 +182,3 @@ Pics.renderChart = function() {
     }
   });
 };
-
