@@ -22,6 +22,7 @@ Pics.ulEl = document.getElementById('results');
 Pics.parsedPics = JSON.parse(localStorage.getItem('userResults'));
 
 
+
 // constructor to make random pic instances
 function Pics(filepath, displayName) {
   this.filepath = filepath;
