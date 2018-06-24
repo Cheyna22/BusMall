@@ -129,7 +129,7 @@ Pics.trackClick = function(event) {
 
 // updating the userResults/parsePics array with the new 25 votes
 Pics.updateResults = function() {
-  localStorage.setItem(Pics.parsedPics.value);
+  localStorage.getItem(Pics.parsedPics.value);
 };
 
 
