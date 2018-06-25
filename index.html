@@ -8,23 +8,36 @@
   </head>
   <body>
     <header>
-      <h1>BusMall Product Survey</h1>
-      <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Products</li>
-        <li>Contact Us</li>
-      </ul>
+      <section id="header-inner">
+        <img id="logo" src="../BusMall/img/bus.jpg 50x50.png" alt="blue bus">
+        <h1>BusMall Product Survey</h1>
+      </section>
+      <nav>
+        <ul>
+          <li>Contact Us</li>
+          <li>About</li>
+          <li>Products</li>
+          <li>Home</li>
+        </ul>
+      </nav>
     </header>
-    <p id="choose">Choose the one you would most likely purchase!</p>
-    <section>
-      <img class="pictures" src="" alt="">
-      <img class="pictures" src="" alt="">
-      <img class="pictures" src="" alt="">  
-    </section>
-    <section>
-      <ul id="results"></ul>
-    </section>
+    <main>
+      <section id="instructions">
+        <h2>Welcome to the BusMall Survery!</h2>
+        <p>Hello, and welcome to our BusMall survery!  We would like to get more familiar with our customers buy finding out what it is they like.</p>
+        <p>Displayed below are 3 pictures of some cool products and we would like you to tell us which one is your favorite!  After going through a cycle of 25 choices a chart will display your results!  Have fun with your choices and feel free to check out the rest of our site when you are done.</p>
+        <p>If you would like to try again you may feel free to simply refresh the page and your results will be saved to update with your new choices!</p>
+        <p id="click-here">Click on a picture below to select your choice.</p>
+      </section>
+      <section>
+        <img class="pictures" src="" alt="">
+        <img class="pictures" src="" alt="">
+        <img class="pictures" src="" alt="">  
+      </section>
+      <section>
+        <ul id="results"></ul>
+      </section>
+    </main>
     <canvas id="resultsChart" width=350 height=250></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
     <script src="js/app.js"></script>

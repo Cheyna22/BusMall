@@ -1,16 +1,64 @@
+body {
+  background-color: #999;
+}
+
 #choose {
   font-size: 20px;
 }
 
-header h1 {
-  background-color: red;
+nav li {
+  float: right;
+  margin: 2px;
+  margin-top: 0px;
+  color: darkblue;
   font-size: 20px;
-  font-family: fantasy
-  
 }
 
-section img {
-  width: 30%;
+#logo {
+  z-index: 1;
+  position: absolute;
+  width: 120px;
+  height: 50px;
+  margin-top: 10px;
+  margin-left: 320px;
+}
+
+header h1 {
+  display: inline-block;
+  background-color: #444;
+  color: blue;
+  font-size: 80px;
+  font-family: fantasy;
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+
+main {
+  width: 1000px;
+  margin: 20px auto;
+  background-color: #999;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+  
+main h2 {
+  outline: 2px dotted black;
+  font-weight: bold;
+  font-size: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+main p {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+section .pictures {
+  width: 25%;
   height: 300px;
   margin: 10 auto;
   border: 4px groove blue;
@@ -20,8 +68,5 @@ section img {
   list-style-type: disc;
   line-height: 1.5;
   margin-left: 20px;
-}
-
-.results-chart {
-  border: 2px solid blue;
+  padding-bottom: 20px;
 }
